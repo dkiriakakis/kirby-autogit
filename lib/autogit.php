@@ -34,8 +34,9 @@ class Autogit extends Git
             : static::$instance;
     }
 
-    public function save(...$params)
+    public function save()
     {
+        $params = func_get_args();
         $message = $this->getMessage($params[0], array_slice($params, 1));
 
         $this->add();
@@ -130,6 +131,6 @@ class Autogit extends Git
 
         array_unshift($params, $translation[$key]);
 
-        return sprintf(...$params);
+        return call_user_func_array('sprintf', $params);
     }
 }
